@@ -1,7 +1,7 @@
 # spigotUp - Spigot Deployment and Update Tool
 
 This is a collection of shell scripts allowing the automatic set up and update for a Spigot server on a Linux device.
-
+This is based on pigot-updater.
 Setting up a Spigot server for the first time can be a daunting challenge 
 
 
@@ -10,7 +10,7 @@ Setting up a Spigot server for the first time can be a daunting challenge
 - git
 - java 8 or above
 
-## Instalation
+## Installation
 
 ## Usage
 
