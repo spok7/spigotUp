@@ -16,7 +16,7 @@ BUILD_NUM_WEB="$(curl -s https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuc
 BUILD_LINK="https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"
 
 LATEST_VERSION="$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq '.latest.release')"
-LOCAL_VERSION="$(unzip -p "${SERVER_DIR}"/spigot.jar version.json | jq ".name")"
+LOCAL_VERSION="$(unzip -p "${SERVER_DIR}"/../spigot.jar version.json | jq ".name")"
 
 if [ ! -d "${BT_DIR}" ]
 then
@@ -43,20 +43,22 @@ else
     echo "Downloading BuildTools.jar"
     curl "${BUILD_LINK}" -s -o "${BT_DIR}"/BuildTools.jar || fatal_error "Download failed"
     echo "${BUILD_NUM_WEB}" > "${BUILD_NUM_FILE}"
-    chmod a+x "${BT_DIR}"/BuildTools.jar
     echo "Download complete"
 fi
 
 # generate server.jar file if it's outdated
-if [ ! -f "${SERVER_DIR}"/spigot.jar ] || ! [ ${LOCAL_VERSION} = ${LATEST_VERSION}]
-}then
+if [ ! -f "${SERVER_DIR}"/../spigot.jar ] || ! [ ${LOCAL_VERSION} == ${LATEST_VERSION} ]
+then
     echo "Building Spigot (this will take a while)"
     cd "${BT_DIR}"
     java -Xmx2G -jar BuildTools.jar --rev latest --output-dir ServerJARs > /dev/null 2>&1 || fatal_error 'Build failed'
     cd "${SERVER_DIR}"
     echo 'Build complete'
     new_build_path="$(ls -td "${BT_DIR}"/ServerJARs/spigot* | head -1)"
-    chmod a+x "${new_build_path}" 
-    cp "${new_build_path}" "$SERVER_DIR"/spigot.jar
+    cp "${new_build_path}" "$SERVER_DIR"/../spigot.jar
     echo "Server Copied"
+else
+    echo "Spigot already on newest version; skipping update"
 fi
+
+echo "Done"
