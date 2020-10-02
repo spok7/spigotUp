@@ -35,14 +35,14 @@ Navigate to the new spigotUp folder and run the update\_server.sh script. This s
 
 ```bash
 cd spigotUp
-bash update_server
+bash update_server.sh
 ```
 ### Running the server
 
 Once you have a spigot.jar file in your server folder, run the run\_server.sh script to start the server. Change the minimum and maximum amounts of memory dedicated to the server by changing the variables at the top of the file. The server is started configured as a java server with a memory cleaner, and with the outdated version message disabled. When running this file, the server will start in the current terminal, and stop when the terminal closes.
 
 ```bash
-bash run_server
+bash run_server.sh
 ```
 
 ### Running the server in the background
@@ -50,7 +50,7 @@ bash run_server
 If you don't want a tab always open on your computer or only have ssh access to your machine, you are best off running it in an app such as screen or tmux. Tmux is used in this instance for no reason at all. Once you run tmux_server.sh, the server will run in the background. To check up on the server, type `tmux a` into any console to attatch to the tmux session, and press Ctrl+B, D to disconnect. Please read up on tmux on your own beforehand. It is a really neat tool, and running spigot servers easily is only one of its many features.
 
 ```bash
-bash tmux_server
+bash tmux_server.sh
 ```
 
 While it is entirely possible to install the server as a service, doing so is not recommended due complications in maintainance.
