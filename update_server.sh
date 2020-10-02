@@ -46,7 +46,7 @@ else
     # backup old BuildTools.jar file
     if [ -f "${bt_dir}"/BuildTools.jar ]
     then
-        mv "${bt_dir}"/BuildTools.jar "${bt_dir}"/BuildTools.jar.old
+        cp "${bt_dir}"/BuildTools.jar "${bt_dir}"/BuildTools.jar.old
         echo "Moved old BuildTools.jar file to BuildTools.jar.old"
     fi
 
