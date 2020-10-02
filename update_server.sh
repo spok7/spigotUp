@@ -73,12 +73,12 @@ then
     echo 'Build complete'
     echo "50% complete"
     new_build_path="$(ls -td "${bt_dir}"/ServerJARs/spigot* | head -1)"
-    echo "69%"
+    echo "69% complete"
     cp "${new_build_path}" "$script_dir"/..
-    echo "80%"
+    echo "80% complete"
     echo "Server Copied"
-    echo "99%"
-    echo "100%"
+    echo "99% complete"
+    echo "100% complete"
 else
     echo "Spigot already on newest version; skipping update"
 fi
