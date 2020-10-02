@@ -63,13 +63,22 @@ if [ ! -f "${script_dir}"/../spigot.jar ] || ! [ ${local_ver} == ${latest_ver} ]
 then
     echo "Building Spigot (this will take a while)"
     cd "${bt_dir}"
+    echo "10% complete"
     java -Xmx2G -jar BuildTools.jar --rev latest --output-dir ServerJARs > /dev/null 2>&1 || fatal_error 'Build failed'
+    echo "20% complete"
     chmod a+x ServerJARs/*
+    echo "30% complete"
     cd "${script_dir}"
+    echo "40% complete"
     echo 'Build complete'
+    echo "50% complete"
     new_build_path="$(ls -td "${bt_dir}"/ServerJARs/spigot* | head -1)"
+    echo "69%"
     cp "${new_build_path}" "$script_dir"/..
+    echo "80%"
     echo "Server Copied"
+    echo "99%"
+    echo "100%"
 else
     echo "Spigot already on newest version; skipping update"
 fi
