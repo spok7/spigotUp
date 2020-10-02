@@ -20,8 +20,12 @@ cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
 #WORLD_NAME=$(cat server.properties | egrep "level-name=.*")
 #WORLD_NAME=${WORLD_NAME:11}
 
+if [ ! -f eula.txt ]
+then
+    echo "eula=true" > eula.txt
+fi
 
-java -server -Xms3G -Xmx6G -XX:+UseConcMarkSweepGC -jar -Dcom.mojang.eula.agree=true -DIReallyKnowWhatIAmDoingISwear spigot*.jar nogui
+java -server -Xms3G -Xmx6G -XX:+UseConcMarkSweepGC -jar -DIReallyKnowWhatIAmDoingISwear spigot*.jar nogui
 #remove_redundants $WORLD_NAME
 #cp -r ${WORLD_NAME} backups/${WORLD_NAME}-$(date +%F)
 
