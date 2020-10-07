@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Downloads newest BuiltTools and builds the latest jar file
-# Creates a backup of the last BuildTools and jar file
+# Creates a backup of the last BuildTools, server jar file, and settings files
 
 
 # handle fatal errors
@@ -69,6 +69,7 @@ then
     echo 'Build complete'
     new_build_path="$(ls -td "${bt_dir}"/ServerJARs/spigot* | head -1)"
     cp "${new_build_path}" "$script_dir"/..
+    python3 "${script_dir}"/backups.py -s
     echo "Server Copied"
 else
     echo "Spigot already on newest version; skipping update"
