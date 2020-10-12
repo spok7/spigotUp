@@ -26,7 +26,7 @@ then
 fi
 
 # run the server
-java -server -Xms"${min_mem}" -Xmx"${max_mem}" -XX:+UseConcMarkSweepGC -jar -DIReallyKnowWhatIAmDoingISwear spigot*.jar nogui
+java -server -Xms"${min_mem}" -Xmx"${max_mem}" -XX:+UseConcMarkSweepGC -jar spigot*.jar nogui
 
 
 # give user chance to quit before restarting
