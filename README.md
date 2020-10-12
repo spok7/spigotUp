@@ -16,7 +16,7 @@ While these scripts do guarantee that your server will always be running the new
 - [java 8 or above](https://java.com/en/download/)
 - [jq](https://stedolan.github.io/jq/manual/)
 - [bash](https://linux.die.net/man/1/bash)
-- [python3](https://www.python.org/downloads/)
+- [python3.6 or higher](https://www.python.org/downloads/)
 
 This guide does not assume the user has any knowledge of the programs above, but knowledge prior of git, tmux, and crontab is recommended.
 
