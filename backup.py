@@ -117,10 +117,10 @@ def filter_by_date(date: str, save_dir: Path) -> list:
         date += "-"
     
     # iterate through all files which match the date requirement
-    # since alphabetical happens to be chronological at this point, grab the last backup from each file
+    # since alphabetical happens to be chronological when list is sorted, grab the last backup from each file
     filtered_paths = []
     last = None
-    for curr in [p for p in save_dir.glob("*") if date in str(p.stem)[-15:]]:
+    for curr in sorted([p for p in save_dir.glob("*") if date in str(p.stem)[-15:]]):
         if last and str(last.stem)[:-15] != str(curr.stem)[:-15]:
             filtered_paths.append(last)
         last = curr
