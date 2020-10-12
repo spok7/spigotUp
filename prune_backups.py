@@ -74,3 +74,4 @@ if __name__ == "__main__":
 
     for p in paths_to_remove:
         p.unlink()
+    print(f"Pruned {len(paths_to_remove)} file(s).")
