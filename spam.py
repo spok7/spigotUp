@@ -20,10 +20,13 @@ if __name__ == "__main__":
     if not backups.is_dir():
         raise FileNotFoundError("ERROR: Target backups directory does not exist")
 
-    dom = ["01", "01", "03", "04", "05", "06", "07", "08", "09"]
-    dom.extend([str(i) for i in range(10, 31)])
-    for year in range(2000, 2010):
-        for month in ["01", "01", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]:
+    dom = ["01", "02", "03", "04", "05", "06", "07", "08", "09"]
+    dom.extend([str(i) for i in range(10, 25)])
+    months = ["01", "01", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+    months = ["01"]
+    for year in range(2000, 2003):
+        for month in months:
             for day in dom:
-                new_path = backups / f"test-{year}-{month}-{day}-1234.zip"
-                new_path.touch()
+                for time in ["0000", "1200"]:
+                    new_path = backups / f"test-{year}-{month}-{day}-{time}.zip"
+                    new_path.touch()
