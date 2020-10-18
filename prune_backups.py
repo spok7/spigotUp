@@ -62,6 +62,8 @@ if __name__ == "__main__":
                 removed_something = True
         
         else:
+            if removed_something:
+                paths_to_remove.pop(-1)
             removed_something = False
             dlst = str(curr_path.stem)[-15:].split("-")
             ref_date = datetime(int(dlst[0]), int(dlst[1]), int(dlst[2]), int(dlst[3][:2]), int(dlst[3][2:]))
