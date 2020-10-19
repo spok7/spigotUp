@@ -15,6 +15,15 @@ def is_valid_path(path: str) -> Path:
         raise FileNotFoundError(path, "is not a valid file or directory")
     return path
 
+def is_valid_world_container(path: str) -> Path:
+    """
+    Returns a Path object if a directory exists at the specified path.
+    Raises exception otherwise.
+    """
+    path = Path(path).resolve()
+    if not path.is_dir():
+        raise FileNotFoundError(path, "is not a valid worlds directory")
+    return path
 
 def timestamp_zip(string: str) -> str:
     """
@@ -51,13 +60,12 @@ def backup_files(paths: list, save_dir: Path) -> None:
         save_path = save_dir / timestamp_zip(f.name)
         backup_file(f, save_path)
 
-def get_world_paths() -> list:
+def get_world_paths(world_container: Path) -> list:
     """
     Returns a list of paths to the worlds on the server.
     """
-    server_dir = Path(__file__).resolve().parents[1]
     world_paths = []
-    for p in server_dir.iterdir():
+    for p in world_container.iterdir():
         if p.is_dir and (p / "level.dat").is_file():
             world_paths.append(p.absolute())
     return world_paths
@@ -175,10 +183,12 @@ if __name__ == "__main__":
                         "when in restore mode, restores all the files in backups folder at the given time",
                         action="store_true")
 
-    # specifies an optional backups folder outside of the default /backups
+    # specifies an optional backups folder outside of the default /backups and worlds folder outside the default /server_folder
     parser.add_argument("-t", help="specifies the target directory from which to save / restore backups",
                         action="store", dest="target")
-    
+    parser.add_argument("-wc", help="specifies where to backup worlds from; default is the server folder",
+                        action="store", dest="world_container", type=is_valid_world_container, default=Path(__file__).resolve().parents[1])
+
     args = parser.parse_args()
     
 
@@ -207,7 +217,7 @@ if __name__ == "__main__":
 
         elif args.worlds:
             print("Backing up Worlds")
-            target_paths = get_world_paths()
+            target_paths = get_world_paths(args.world_container)
 
         elif args.settings:
             print("Backing up Settings")
@@ -215,7 +225,7 @@ if __name__ == "__main__":
 
         else:
             print("Backing up Worlds and Settings")
-            target_paths = get_world_paths() + get_setting_paths()
+            target_paths = get_world_paths(args.world_container) + get_setting_paths()
 
         backup_files(target_paths, backups)
         print("Backup Completed")
