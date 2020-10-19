@@ -24,7 +24,7 @@ bt_link="https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/art
 
 # latest and local minecraft versions
 latest_ver="$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq '.latest.release')"
-local_ver="$(unzip -p "${script_dir}"/../spigot.jar version.json | jq ".name")"
+local_ver="$(unzip -p "${script_dir}"/../spigot-*.jar version.json | jq ".name")"
 
 
 
@@ -59,9 +59,9 @@ else
 fi
 
 # generate server.jar file if it's outdated
-if [ ! -f "${script_dir}"/../spigot.jar ] || ! [ ${local_ver} == ${latest_ver} ]
+if [ ! -f "${script_dir}"/../spigot-*.jar ] || ! [ ${local_ver} == ${latest_ver} ]
 then
-    echo "Building Spigot (this will take a while)"
+    echo "[${local_ver} -> ${latest_ver}] Building Spigot (this will take a while)"
     cd "${bt_dir}"
     java -Xmx2G -jar BuildTools.jar --rev latest --output-dir ServerJARs > /dev/null 2>&1 || fatal_error 'Build failed'
     chmod a+x ServerJARs/*
@@ -69,7 +69,7 @@ then
     echo 'Build complete'
     new_build_path="$(ls -td "${bt_dir}"/ServerJARs/spigot* | head -1)"
     cp "${new_build_path}" "$script_dir"/..
-    python3 "${script_dir}"/backups.py -s
+    python3 "${script_dir}"/backup.py -s
     echo "Server Copied"
 else
     echo "Spigot already on newest version; skipping update"
