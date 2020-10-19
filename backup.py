@@ -186,8 +186,6 @@ if __name__ == "__main__":
     # specifies an optional backups folder outside of the default /backups and worlds folder outside the default /server_folder
     parser.add_argument("-t", help="specifies the target directory from which to save / restore backups",
                         action="store", dest="target")
-    parser.add_argument("-wc", help="specifies where to backup worlds from; default is the server folder",
-                        action="store", dest="world_container", type=is_valid_world_container, default=Path(__file__).resolve().parents[1])
 
     args = parser.parse_args()
     
@@ -205,6 +203,11 @@ if __name__ == "__main__":
     # when backing up, make dir if it doesn't exist
     backups.mkdir(exist_ok=True)
 
+    # check if dedicated worlds folder is in use
+    world_container = Path(__file__).resolve().parents[1]
+    if (world_container / "worlds").is_dir():
+        world_container /= "worlds"
+
 
     # backup files
     if not args.restore:
@@ -217,7 +220,7 @@ if __name__ == "__main__":
 
         elif args.worlds:
             print("Backing up Worlds")
-            target_paths = get_world_paths(args.world_container)
+            target_paths = get_world_paths(world_container)
 
         elif args.settings:
             print("Backing up Settings")
@@ -225,7 +228,7 @@ if __name__ == "__main__":
 
         else:
             print("Backing up Worlds and Settings")
-            target_paths = get_world_paths(args.world_container) + get_setting_paths()
+            target_paths = get_world_paths(world_container) + get_setting_paths()
 
         backup_files(target_paths, backups)
         print("Backup Completed")

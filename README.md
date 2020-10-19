@@ -74,7 +74,7 @@ The first line guarantees the server starts whenever the computer starts. The se
 
 ### Creating and Restoring Backups
 
-The backups.py script is able to create and restore backups of server files in a zip format to and from the spigotUp/backups folder. The backups script does not back up jar files with the w, s, or all tags for space saving purposes, since update_server.sh does that already.
+The backups.py script is able to create and restore backups of server files in a zip format to and from the spigotUp/backups folder. The backups script does not back up jar files with the w, s, or all tags for space saving purposes, since update_server.sh does that already. If a `worlds` folder exists in the server directory, the script will target that instead of the server directory to backup worlds from.
 
 Here is the help text:
 ```
@@ -105,9 +105,6 @@ optional arguments:
 
   -t TARGET             specifies the target directory from
                         which to save / restore backups
-
-  -wc WORLD_CONTAINER   speficies where to backup worlds from; default is
-                        the server folder
 ```
 
 Here are some example use cases:
@@ -122,9 +119,6 @@ python3 backups.py -f file1 -t ~/mybackupsfolder
 # save all worlds files
 # this runs in the run_server.sh file before starting the server
 python3 backups.py -w
-
-# same as above, but saves from another worlds directory
-python3 backups.py -w -wc ../worlds
 
 # save all settings files
 # this runs in the update_server.sh file after fetching a new server version
