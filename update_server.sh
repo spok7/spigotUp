@@ -63,7 +63,7 @@ if [ ! -f "${script_dir}"/../spigot-*.jar ] || ! [ ${local_ver} == ${latest_ver}
 then
     echo "[${local_ver} -> ${latest_ver}] Building Spigot (this will take a while)"
     cd "${bt_dir}"
-    java -Xmx2G -jar BuildTools.jar --rev latest --output-dir ServerJARs > /dev/null 2>&1 || fatal_error 'Build failed'
+    java -Xmx2G -jar BuildTools.jar --rev ${latest_ver} --output-dir ServerJARs > /dev/null 2>&1 || fatal_error 'Build failed'
     chmod a+x ServerJARs/*
     cd "${script_dir}"
     echo 'Build complete'
