@@ -68,6 +68,7 @@ then
     cd "${script_dir}"
     echo 'Build complete'
     new_build_path="$(ls -td "${bt_dir}"/ServerJARs/spigot* | head -1)"
+    mv ../spigot-*.jar ../old_spigot.jar
     cp "${new_build_path}" "$script_dir"/..
     python3 "${script_dir}"/backup.py -s
     echo "Server Copied"

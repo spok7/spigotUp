@@ -68,6 +68,11 @@ def get_world_paths(world_container: Path) -> list:
     for p in world_container.iterdir():
         if p.is_dir and (p / "level.dat").is_file():
             world_paths.append(p.absolute())
+    if (world_container / "worlds").is_dir():
+        world_container /= "worlds"
+        for p in world_container.iterdir():
+            if p.is_dir and (p / "level.dat").is_file():
+                world_paths.append(p.absolute())
     return world_paths
 
 def get_setting_paths() -> list:
